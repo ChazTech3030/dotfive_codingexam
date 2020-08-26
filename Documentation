@@ -1,26 +1,31 @@
---- Configuration and Execution ---
+---=[ Configuration and Execution ]=---
 
 
---- Development Process ---
-sudo apt-get install python3
-sudo apt-get install python3-pip
-sudo apt-get install python3-venv
-export FLASK_APP=app.py
-export FLASK_ENV=development
-sudo python3 -m venv venv
-. venv/bin/activate
-sudo pip3 install flask
-sudo pip3 freeze > requirements.txt
-flask run
+---=[ Development Process ]=---
 
-export FLASK_APP=run.py
-sudo pip3 install flask_sqlalchemy
-sudo pip3 install flask_bcrypt
-sudo pip3 install flask_login
-sudo pip3 install flask_wtf
-sudo pip3 install email_validator
+1st commit
+-=-=-=-=-=-
+	sudo apt-get install python3
+	sudo apt-get install python3-pip
+	sudo apt-get install python3-venv
+	export FLASK_APP=app.py
+	export FLASK_ENV=development
+	sudo python3 -m venv venv
+	. venv/bin/activate
+	sudo pip3 install flask
+	sudo pip3 freeze > requirements.txt
+	flask run
 
-sudo python3
->>> from application import db
->>> db.create_all()
-flask run
+2nd commit
+-=-=-=-=-=-
+	export FLASK_APP=run.py
+	sudo pip3 install flask_sqlalchemy
+	sudo pip3 install flask_bcrypt
+	sudo pip3 install flask_login
+	sudo pip3 install flask_wtf
+	sudo pip3 install email_validator
+
+	sudo python3
+	>>> from application import db
+	>>> db.create_all()
+	flask run

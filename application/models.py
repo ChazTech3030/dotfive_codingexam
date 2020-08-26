@@ -16,3 +16,13 @@ class Users(db.Model, UserMixin):
 		return ''.join(['User ID: ', str(self.id), '\r\n', 
 			'Email: ', self.email, '\r\n',
 			'Name: ', self.first_name, ' ', self.last_name])
+
+class Entries(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	parent = db.Column(db.String(100), nullable=True)
+	item = db.Column(db.String(100), nullable=False)
+
+	def __repr__(self):
+		return ''.join([str(self.id), '\r\n',
+			self.parent, '\r\n',
+			self.item])

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 from application import app, db, bcrypt
-from application.models import Users
-from application.forms import RegistrationForm, LoginForm
+from application.models import Users, Entries
+from application.forms import RegistrationForm, LoginForm, EntriesForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route('/')
@@ -29,7 +29,6 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = Users.query.filter_by(email=form.email.data).first()
-		# print("User : " + user)
 		if user and bcrypt.check_password_hash(user.password, form.password.data):
 			login_user(user, remember=form.remember.data)
 			next_page = request.args.get('next')
@@ -43,3 +42,15 @@ def login():
 def logout():
 	logout_user()
 	return redirect(url_for('login'))
+
+@app.route('/inventories', methods=['GET', 'POST'])
+@login_required
+def inventories():
+	data = Entries.query.all()
+	form = EntriesForm()
+	cleandata = []
+	for row in data:
+		print('row: ' + str(row))
+		datasplit = str(row).split('\r\n')
+		cleandata.append(datasplit)
+	return render_template('inventories.html', title='Inventory', data=cleandata, form=form)
