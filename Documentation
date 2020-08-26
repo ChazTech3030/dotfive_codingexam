@@ -1,31 +1,38 @@
 ---=[ Configuration and Execution ]=---
 
+$ git clone https://github.com/ChazTech3030/dotfive_codingexam
+$ cd ./dotfive_codingexam/
+$ python3 -m venv venv
+$ . venv/bin/activate
+$ pip3 install -r requirements.txt
 
----=[ Development Process ]=---
+If requirements.txt fails for whatever reason, manual installation can be achieved:
+	$ pip3 install Flask
+	$ pip3 install flask_sqlalchemy
+	$ pip3 install flask_bcrypt
+	$ pip3 install flask_login
+	$ pip3 install flask_wtf
+	$ pip3 install email_validator
 
-1st commit
--=-=-=-=-=-
-	sudo apt-get install python3
-	sudo apt-get install python3-pip
-	sudo apt-get install python3-venv
-	export FLASK_APP=app.py
-	export FLASK_ENV=development
-	sudo python3 -m venv venv
-	. venv/bin/activate
-	sudo pip3 install flask
-	sudo pip3 freeze > requirements.txt
-	flask run
+$ python3
+>>> from application import db
+>>> db.create_all()
+>>> exit()
 
-2nd commit
--=-=-=-=-=-
-	export FLASK_APP=run.py
-	sudo pip3 install flask_sqlalchemy
-	sudo pip3 install flask_bcrypt
-	sudo pip3 install flask_login
-	sudo pip3 install flask_wtf
-	sudo pip3 install email_validator
+$ export FLASK_APP=run.py
+$ export FLASK_ENV=Development
+$ flask run
 
-	sudo python3
-	>>> from application import db
-	>>> db.create_all()
-	flask run
+from a browser, navigate to:
+	localhost:5000/home
+	OR
+	127.0.0.1:5000/home
+
+
+---=[ Development Documentation ]=---
+
+A kanban board of the development can be found here: https://trello.com/b/iBzq9o0t/
+
+What was not achieved that must have been implemented was automatic updating when multiple users are logged in. Due to self-appointed time constraints, this was not achieved, although if I were to spend more time on this, I'm not entirely sure of the best approach. My gut reaction would be fire a method that would resubmit the last page visited by all currently sessions, when the inventories submit form is successful.
+
+Although I hadn't done any Flask development for about a year now, this was an incredibly fun little challenge to attempt. Ideally, I wouldn't expect this level of development to happen this quickly, due to change control, testing, and regular scrums dictating priorities, so it was nice to do something end to end for a change!
