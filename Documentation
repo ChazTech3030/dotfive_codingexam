@@ -1,0 +1,14 @@
+--- Configuration and Execution ---
+
+
+--- Development Process ---
+sudo apt-get install python3
+sudo apt-get install python3-pip
+sudo apt-get install python3-venv
+export FLASK_APP=app.py
+export FLASK_ENV=development
+sudo python3 -m venv venv
+. venv/bin/activate
+sudo pip3 install flask
+sudo pip3 freeze > requirements.txt
+flask run
