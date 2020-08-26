@@ -3,8 +3,39 @@
 	<h1>Inventory</h1>
 	<div class="form">
 		<form method="POST" action="">
+			<p> Add a new item </p>
 			<div class="form-group">
-				{% for row in data %}
+				{{ form.csrf_token() }}
+				{{ form.parent.label }}
+				{{ form.parent }}
+				{% if form.parent.errors %}
+					<div class="error">
+						{% for error in form.parent.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+				{{ form.item.label }}
+				{{ form.item }}
+				{% if form.item.errors %}
+					<div class="error">
+						{% for error in form.item.errors %}
+							<span>{{ error }}</span>
+						{% endfor %}
+					</div>
+				{% endif %}
+				{{ form.submit(value="Add Record") }}
+			</div>
+		</form>
+	</div>
+	<div class="form">	
+		<p> Or update an existing item </p>
+		<div class="form-group">
+			{% for row in data %}
+				<form method="POST" action="">
+					{{ form.csrf_token() }}
+					{{ form.id.label }}
+					{{ form.id(readonly=true,value=row[0]) }}
 					{{ form.parent.label }}
 					{{ form.parent(value=row[1]) }}
 					{% if form.parent.errors %}
@@ -26,9 +57,11 @@
 					{% endif %}
 
 					{{ form.submit }}
-					<br>
-				{% endfor %}
-			</div>
+					{{ form.submit(value='Delete')}}
+				</form>
+				<br>
+			{% endfor %}
+		</div>
 		</form>
 	</div>
 {% endblock body_content %}

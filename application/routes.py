@@ -47,10 +47,27 @@ def logout():
 @login_required
 def inventories():
 	data = Entries.query.all()
-	form = EntriesForm()
+	form = EntriesForm(obj=data)
+	# Pretty sure this cleaning of data in unecessary, but couldn't recall the 
+	# correct method to be able to use the request data as an iterable object
 	cleandata = []
 	for row in data:
-		print('row: ' + str(row))
 		datasplit = str(row).split('\r\n')
 		cleandata.append(datasplit)
+	if form.validate_on_submit():
+		if request.form['submit'] == 'Add Record':
+			entry = Entries(parent=form.parent.data,item=form.item.data)
+			db.session.add(entry)
+		elif request.form['submit'] == 'Delete':
+			id = request.form['id']
+			entry = Entries.query.filter_by(id=id).first()
+			db.session.delete(entry)
+		else:
+			Entries.query.filter_by(id=form.id.data).update({'parent':form.parent.data,'item':form.item.data})
+		db.session.commit()
+		return redirect(url_for('inventories'))
 	return render_template('inventories.html', title='Inventory', data=cleandata, form=form)
+
+@app.errorhandler(404)
+def not_found(e):
+	return render_template('404.html'), 404

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, SelectField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, IntegerField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from application.models import Users, Entries
 from flask_login import current_user
@@ -50,6 +50,7 @@ class LoginForm(FlaskForm):
 	submit = SubmitField('Login')
 
 class EntriesForm(FlaskForm):
+	id = IntegerField('ID')
 	parent = StringField('Parent')
 	item = StringField('Item Name',
 		validators=[
